@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Locker System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background-color: #003366;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 16px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: #0055a4;
+        }
+        
+        .main-content {
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+        
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 25px;
+        }
+        
+        .alert {
+            background: #e74c3c;
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 1rem 0;
+            padding: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .secure {
+            color: #2a6b2a;
+            cursor: pointer;
+        }
+        
+        .btn {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        /* User Profile Button */
+        .profile-btn {
+            background-color: #003366;
+            color: white;
+            border: 1px solid white;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        /* Login Button */
+        .login-btn {
+            background-color: #2a6b2a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        
+        /* Settings Button */
+        .settings-btn {
+            background-color: #4c98af;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        
+        /* Hidden file upload */
+        .hidden-upload {
+            display: none;
+        }
+        
+        /* File name display */
+        .file-name {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        /* File size notice */
+        .file-size-notice {
+            font-size: 11px;
+            color: #888;
+            font-style: italic;
+            margin-top: 2px;
+        }
+        
+        /* Error message */
+        .error-message {
+            color: #d9534f;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 70%;
+            max-width: 700px;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        .file-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .file-list li {
+            padding: 8px;
+            margin-bottom: 6px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .file-icon {
+            margin-right: 10px;
+            color: #666;
+        }
+        
+        .no-files {
+            color: #999;
+            font-style: italic;
+        }
+        
+        .category-name {
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #333;
+            font-size: 18px;
+        }
+        
+        /* PIN Modal */
+        .pin-modal {
+            display: none;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .pin-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+        
+        .pin-display {
+            margin: 20px 0;
+            letter-spacing: 8px;
+            font-size: 24px;
+            font-family: monospace;
+        }
+        
+        .pin-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 240px;
+            margin: 0 auto;
+        }
+        
+        .pin-button {
+            padding: 15px;
+            font-size: 18px;
+            border: 1px solid #ddd;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .pin-button:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .pin-error {
+            color: #d9534f;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .pin-message {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .pin-submit {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .pin-submit:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        /* Login Modal */
+        .login-modal {
+            display: none;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .login-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 350px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        /* Settings Modal */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .settings-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .settings-section {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .settings-section h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .tab-nav {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .tab-btn {
+            padding: 10px 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .tab-btn.active {
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* User profile section */
+        .profile-section {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background-color: #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #666;
+            margin-right: 20px;
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .profile-email {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        /* Preview Modal */
+        .preview-modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .preview-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .preview-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .preview-area {
+            margin: 20px 0;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 50vh;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .preview-text {
+            width: 100%;
+            min-height: 200px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .preview-error {
+            color: #d9534f;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .preview-download {
+            display: block;
+            margin: 15px auto 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">HCSS</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="#">Locker System</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div>
+            <button id="settings-button" class="settings-btn">Settings</button>
+            <button id="login-button" class="login-btn">Login</button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            Highly Confidential Security System (HCSS)
+        </div>
+
+        <div class="alert">
+            SECURE ACCESS ONLY
+        </div>
+
+        <!-- Header with current time -->
+        <div class="header">
+            <h1 style="font-size: 30px;">Security Locker System</h1>
+            <p>Current Time: <span id="current-time"></span></p>
+        </div>
+
+        <div class="container">
+            <!-- Digital Lockers -->
+            <div class="card">
+                <h2>Digital Lockers</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Action</th>
+                            <th>Last Modified</th>
+                            <th>Controls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Password Vault</td>
+                            <td class="secure" onclick="triggerFileUpload('upload-1')">
+                                Upload
+                                <div class="file-size-notice">File size must be less than 1MB</div>
+                                <input type="file" id="upload-1" class="hidden-upload" onchange="handleFileUpload(this, 'file-name-1', 'error-1', 'Password Vault')">
+                                <div id="file-name-1" class="file-name"></div>
+                                <div id="error-1" class="error-message"></div>
+                            </td>
+                            <td>2025-02-16 12:00</td>
+                            <td><button class="btn" onclick="accessCategory('Password Vault')">Access</button></td>
+                        </tr>
+                        <tr>
+                            <td>Bank Accounts</td>
+                            <td class="secure" onclick="triggerFileUpload('upload-2')">
+                                Upload
+                                <div class="file-size-notice">File size must be less than 1MB</div>
+                                <input type="file" id="upload-2" class="hidden-upload" onchange="handleFileUpload(this, 'file-name-2', 'error-2', 'Bank Accounts')">
+                                <div id="file-name-2" class="file-name"></div>
+                                <div id="error-2" class="error-message"></div>
+                            </td>
+                            <td>2025-02-16 11:45</td>
+                            <td><button class="btn" onclick="accessCategory('Bank Accounts')">Access</button></td>
+                        </tr>
+                        <tr>
+                            <td>Media Storage</td>
+                            <td class="secure" onclick="triggerFileUpload('upload-3')">
+                                Upload
+                                <div class="file-size-notice">File size must be less than 1MB</div>
+                                <input type="file" id="upload-3" class="hidden-upload" onchange="handleFileUpload(this, 'file-name-3', 'error-3', 'Media Storage')">
+                                <div id="file-name-3" class="file-name"></div>
+                                <div id="error-3" class="error-message"></div>
+                            </td>
+                            <td>2025-02-16 12:15</td>
+                            <td><button class="btn" onclick="accessCategory('Media Storage')">Access</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Files Modal -->
+            <div id="filesModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('filesModal')">&times;</span>
+                    <div id="modal-category" class="category-name"></div>
+                    <ul id="filesList" class="file-list">
+                        <!-- Files will be displayed here -->
+                    </ul>
+                </div>
+            </div>
+        
+            <!-- Preview Modal -->
+            <div id="previewModal" class="preview-modal">
+                <div class="preview-content">
+                    <div class="preview-header">
+                        <div class="preview-title" id="preview-title">File Preview</div>
+                        <span class="close" onclick="closeModal('previewModal')">&times;</span>
+                    </div>
+                    <div class="preview-area" id="preview-area">
+                        <!-- File preview will be displayed here -->
+                    </div>
+                    <button id="download-button" class="btn preview-download">Download File</button>
+                </div>
+            </div>
+
+            <!-- Admin Panel -->
+            <div class="card">
+                <h2>Admin Controls</h2>
+                <table>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>System Access</td>
+                        <td class="secure">Active</td>
+                        <td><button class="btn" onclick="accessAdminFeature('System Access')">Manage</button></td>
+                    </tr>
+                    <tr>
+                        <td>User Management</td>
+                        <td class="secure">Active</td>
+                        <td><button class="btn" onclick="accessAdminFeature('User Management')">Manage</button></td>
+                    </tr>
+                    <tr>
+                        <td>Security Settings</td>
+                        <td class="secure">Active</td>
+                        <td><button class="btn" onclick="accessAdminFeature('Security Settings')">Manage</button></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- User Management -->
+            <div class="card">
+                <h2>Users</h2>
+                <table>
+                    <tr>
+                        <th>User</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>Admin</td>
+                        <td>Administrator</td>
+                        <td class="secure">Active</td>
+                        <td><button class="btn" onclick="editUser('Admin')">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>User1</td>
+                        <td>Standard</td>
+                        <td class="secure">Active</td>
+                        <td><button class="btn" onclick="editUser('User1')">Edit</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIN Modal -->
+    <div id="pinModal" class="pin-modal">
+        <div class="pin-content">
+            <h3 id="pinTitle">Enter PIN</h3>
+            <p id="pinMessage" class="pin-message">Please enter a 4-digit PIN</p>
+            <div id="pinDisplay" class="pin-display">____</div>
+            <div class="pin-pad">
+                <button class="pin-button" onclick="addPin('1')">1</button>
+                <button class="pin-button" onclick="addPin('2')">2</button>
+                <button class="pin-button" onclick="addPin('3')">3</button>
+                <button class="pin-button" onclick="addPin('4')">4</button>
+                <button class="pin-button" onclick="addPin('5')">5</button>
+                <button class="pin-button" onclick="addPin('6')">6</button>
+                <button class="pin-button" onclick="addPin('7')">7</button>
+                <button class="pin-button" onclick="addPin('8')">8</button>
+                <button class="pin-button" onclick="addPin('9')">9</button>
+                <button class="pin-button" onclick="clearPin()">Clear</button>
+                <button class="pin-button" onclick="addPin('0')">0</button>
+                <button class="pin-button" onclick="deletePin()">←</button>
+            </div>
+            <div id="pinError" class="pin-error">Incorrect PIN. Please try again.</div>
+            <button id="pinSubmit" class="pin-submit" disabled onclick="submitPin()">Submit</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login to HCSS</h2>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <div id="loginError" class="pin-error">Invalid username or password.</div>
+            <button class="btn" onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-content">
+            <span class="close" onclick="closeModal('settingsModal')">&times;</span>
+            <h2>User Settings</h2>
+            
+            <div class="tab-nav">
+                <button class="tab-btn active" onclick="openTab(event, 'profile-tab')">Profile</button>
+                <button class="tab-btn" onclick="openTab(event, 'security-tab')">Security</button>
+                <button class="tab-btn" onclick="openTab(event, 'pins-tab')">PIN Management</button>
+            </div>
+            
+            <!-- Profile Tab -->
+            <div id="profile-tab" class="tab-content active">
+                <div class="profile-section">
+                    <div class="profile-avatar">A</div>
+                    <div class="profile-info">
+                        <div class="profile-name">Admin User</div>
+                        <div class="profile-email">admin@hcss.com</div>
+                        <button class="btn" onclick="showChangePasswordForm()">Change Password</button>
+                    </div>
+                </div>
+                
+                <div id="password-change-form" style="display:none;">
+                    <div class="form-group">
+                        <label for="current-password">Current Password</label>
+                        <input type="password" id="current-password" placeholder="Enter current password">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">New Password</label>
+                        <input type="password" id="new-password" placeholder="Enter new password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" placeholder="Confirm new password">
+                    </div>
+                    <div id="password-error" class="pin-error">Passwords do not match.</div>
+                    <button class="btn" onclick="updatePassword()">Update Password</button>
+                </div>
+            </div>
+            
+            <!-- Security Tab -->
+            <div id="security-tab" class="tab-content">
+                <div class="settings-section">
+                    <h3>Login Settings</h3>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="enable-2fa"> Enable Two-Factor Authentication
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="remember-device" checked> Remember this device for 30 days
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Session Settings</h3>
+                    <div class="form-group">
+                        <label for="session-timeout">Auto-logout after inactivity (minutes)</label>
+                        <input type="number" id="session-timeout" value="15" min="5" max="60">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PINs Tab -->
+            <div id="pins-tab" class="tab-content">
+                <div class="settings-section">
+                    <h3>Manage PINs</h3>
+                    <p>Set or change PINs for your digital lockers and admin features.</p>
+                    
+                    <table>
+                        <tr>
+                            <th>Category</th>
+                            <th>PIN Status</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr>
+                            <td>Password Vault</td>
+                            <td id="pin-status-Password-Vault">Not Set</td>
+                            <td><button class="btn" onclick="setPin('Password Vault')">Set PIN</button></td>
+                        </tr>
+                        <tr>
+                            <td>Bank Accounts</td>
+                            <td id="pin-status-Bank-Accounts">Not Set</td>
+                            <td><button class="btn" onclick="setPin('Bank Accounts')">Set PIN</button></td>
+                        </tr>
+                        <tr>
+                            <td>Media Storage</td>
+                            <td id="pin-status-Media-Storage">Not Set</td>
+                            <td><button class="btn" onclick="setPin('Media Storage')">Set PIN</button></td>
+                        </tr>
+                        <tr>
+                            <td>Admin Controls</td>
+                            <td id="pin-status-Admin">Not Set</td>
+                            <td><button class="btn" onclick="setPin('Admin')">Set PIN</button></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Master Password</h3>
+                    <p>Set a master password that works for all categories (overrides individual PINs).</p>
+                    <button class="btn" onclick="setMasterPassword()">Set Master Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
+        let uploadedFiles = {
+            "Password Vault": [],
+            "Bank Accounts": [],
+            "Media Storage": []
+        };
+        
+        // PIN and Authentication variables
+        let pins = {
+            "Password Vault": "",
+            "Bank Accounts": "",
+            "Media Storage": "",
+            "Admin": "",
+            "Master": ""
+        };
+        
+        let currentCategory = "";
+        let currentPin = "";
+        let isSettingPin = false;
+        let confirmPin = "";
+        let isLoggedIn = false;
+        let masterPassword = "";
+        
+        // Initialize the system
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            setInterval(updateTime, 1000);
+            
+            // Add event listeners for buttons
+            document.getElementById('login-button').addEventListener('click', showLoginModal);
+            document.getElementById('settings-button').addEventListener('click', showSettingsModal);
+        });
+        
+        // Time functions
+        function updateTime() {
+            const now = new Date();
+            const timeElement = document.getElementById('current-time');
+            
+            // Format: HH:MM:SS
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        
+        // File upload functions
+        function triggerFileUpload(inputId) {
+            if (!isLoggedIn) {
+                showLoginModal();
+                return;
+            }
+            document.getElementById(inputId).click();
+        }
+
+        function handleFileUpload(input, fileNameId, errorId, category) {
+            const fileNameElement = document.getElementById(fileNameId);
+            const errorElement = document.getElementById(errorId);
+            
+            // Clear previous messages
+            fileNameElement.textContent = "";
+            errorElement.style.display = "none";
+            errorElement.textContent = "";
+            
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                
+                // Check file size
+                if (file.size > MAX_FILE_SIZE

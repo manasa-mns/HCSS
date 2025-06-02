@@ -1,0 +1,1300 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Locker System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            /* box-sizing: border-box; */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            /* color: #333; */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            /* background-color: #f0f0f0; */
+        }
+        .navbar {
+            background-color: #003366;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            justify-content: space-between; /* Changed to space between for logo and links */
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 16px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: #0055a4;
+        }
+        
+        .main-content {
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 25px;
+        }
+        
+         /* .header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 25px;
+        } */
+        
+
+        /* #current-time {
+        font-weight: bold;
+        } */
+
+        .profile-btn {
+            background-color: #003366;
+            color: white;
+            border: 1px solid white;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        /* Login Button */
+        .login-btn {
+            background-color: #2a6b2a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        
+        /* Settings Button */
+        .settings-btn {
+            background-color: #4c98af;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        .alert {
+            background: #e74c3c;
+            color: white;
+            padding: 0.5rem;
+            text-align: center;font-size: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 1rem 0;
+            padding: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #2c3e50;
+            color: white;
+        }
+
+        /* .secure {
+            color: #27ae60;
+        } */
+
+        .warning {
+            color: #f39c12;
+        }
+
+        .btn {
+            background: #2c3e50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #34495e;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .secure {
+            color: #2a6b2a;
+            cursor: pointer;
+        }
+        .btn {
+            background-color: #4c98af;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        /* Hide the actual file input */
+        .hidden-upload {
+            display: none;
+        }
+        /* Style for uploaded file name */
+        .file-name {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        /* Style for file size notice */
+        .file-size-notice {
+            font-size: 11px;
+            color: #888;
+            font-style: italic;
+            margin-top: 2px;
+        }
+        /* Style for error message */
+        .error-message {
+            color: #d9534f;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .secure {
+            color: #2a6b2a;
+            cursor: pointer;
+        }
+        .btn {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        /* Hide the actual file input */
+        .hidden-upload {
+            display: none;
+        }
+        /* Style for uploaded file name */
+        .file-name {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        /* Style for file size notice */
+        .file-size-notice {
+            font-size: 11px;
+            color: #888;
+            font-style: italic;
+            margin-top: 2px;
+        }
+        /* Style for error message */
+        .error-message {
+            color: #d9534f;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 70%;
+            max-width: 700px;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #333;
+        }
+        .file-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .file-list li {
+            padding: 8px;
+            margin-bottom: 6px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+        .file-icon {
+            margin-right: 10px;
+            color: #666;
+        }
+        .no-files {
+            color: #999;
+            font-style: italic;
+        }
+        .category-name {
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #333;
+            font-size: 18px;
+        }
+        .pin-modal {
+            display: none;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .pin-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+        
+        .pin-display {
+            margin: 20px 0;
+            letter-spacing: 8px;
+            font-size: 24px;
+            font-family: monospace;
+        }
+        
+        .pin-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 240px;
+            margin: 0 auto;
+        }
+        
+        .pin-button {
+            padding: 15px;
+            font-size: 18px;
+            border: 1px solid #ddd;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .pin-button:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .pin-error {
+            color: #d9534f;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .pin-message {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .pin-submit {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .pin-submit:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .footer {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info, .social-links {
+            text-align: left;
+        }
+        
+        .social-links a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        .copyright {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+
+       
+      
+    </style>
+</head>
+<body>
+     <!-- Navigation Bar -->
+     <div class="navbar">
+        <div class="logo">HCSS</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="#">Locker System</a>
+            <a href="contactus.html">Contact Us</a>
+        </div>
+        
+    </div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            Highly Confidential Security System (HCSS)
+        </div>
+
+    <div class="alert" >
+        SECURE ACCESS ONLY
+    </div>
+
+    <!-- HTML for the updated header -->
+    <div class="header">
+    <h1 style="font-size: 30px;">Security Locker System</h1>
+    <p>Current Time: <span id="current-time"></span></p>
+    </div>
+
+
+    <div class="container">
+        <!-- Digital Lockers -->
+        <div class="card">
+            <h2>Digital Lockers</h2>
+            <table>
+                
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Action</th>
+                        <th>Last Modified</th>
+                        <th>Controls</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Password Vault</td>
+                        <td class="secure" onclick="triggerFileUpload('upload-1')">
+                            Upload
+                            <div class="file-size-notice">File size must be less than 1MB</div>
+                            <input type="file" id="upload-1" class="hidden-upload" onchange="handleFileUpload(this, 'file-name-1', 'error-1', 'Password Vault')">
+                            <div id="file-name-1" class="file-name"></div>
+                            <div id="error-1" class="error-message"></div>
+                        </td>
+                        <td>2025-02-16 12:00</td>
+                        <td><button class="btn" onclick="showFiles('Password Vault')">Access</button></td>
+                    </tr>
+                    <tr>
+                        <td>Bank Accounts</td>
+                        <td class="secure" onclick="triggerFileUpload('upload-2')">
+                            Upload
+                            <div class="file-size-notice">File size must be less than 1MB</div>
+                            <input type="file" id="upload-2" class="hidden-upload" onchange="handleFileUpload(this, 'file-name-2', 'error-2', 'Bank Accounts')">
+                            <div id="file-name-2" class="file-name"></div>
+                            <div id="error-2" class="error-message"></div>
+                        </td>
+                        <td>2025-02-16 11:45</td>
+                        <td><button class="btn" onclick="showFiles('Bank Accounts')">Access</button></td>
+                    </tr>
+                    <tr>
+                        <td>Media Storage</td>
+                        <td class="secure" onclick="triggerFileUpload('upload-3')">
+                            Upload
+                            <div class="file-size-notice">File size must be less than 1MB</div>
+                            <input type="file" id="upload-3" class="hidden-upload" onchange="handleFileUpload(this, 'file-name-3', 'error-3', 'Media Storage')">
+                            <div id="file-name-3" class="file-name"></div>
+                            <div id="error-3" class="error-message"></div>
+                        </td>
+                        <td>2025-02-16 12:15</td>
+                        <td><button class="btn" onclick="showFiles('Media Storage')">Access</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="filesModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('filesModal')">&times;</span>
+                <div id="modal-category" class="category-name"></div>
+                <ul id="filesList" class="file-list">
+                    <!-- Files will be displayed here -->
+                </ul>
+            </div>
+        </div>
+    
+        <!-- Preview Modal -->
+        <div id="previewModal" class="preview-modal">
+            <div class="preview-content">
+                <div class="preview-header">
+                    <div class="preview-title" id="preview-title">File Preview</div>
+                    <span class="close" onclick="closeModal('previewModal')">&times;</span>
+                </div>
+                <div class="preview-area" id="preview-area">
+                    <!-- File preview will be displayed here -->
+                </div>
+                <button id="download-button" class="btn preview-download">Download File</button>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="card">
+            <h2>Admin Controls</h2>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td>System Access</td>
+                    <td class="secure">Active</td>
+                    <td><button class="btn">Manage</button></td>
+                </tr>
+                <tr>
+                    <td>User Management</td>
+                    <td class="secure">Active</td>
+                    <td><button class="btn">Manage</button></td>
+                </tr>
+                <tr>
+                    <td>Security Settings</td>
+                    <td class="secure">Active</td>
+                    <td><button class="btn">Manage</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- User Management -->
+        <div class="card">
+            <h2>Users</h2>
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td>Administrator</td>
+                    <td class="secure">Active</td>
+                    <td><button class="btn">Edit</button></td>
+                </tr>
+                <tr>
+                    <td>User1</td>
+                    <td>Standard</td>
+                    <td class="secure">Active</td>
+                    <td><button class="btn">Edit</button></td>
+                </tr>
+            </table>
+            <div id="pinModal" class="pin-modal">
+                <div class="pin-content">
+                    <h3 id="pinTitle">Enter PIN</h3>
+                    <p id="pinMessage" class="pin-message">Please enter a 4-digit PIN</p>
+                    <div id="pinDisplay" class="pin-display">____</div>
+                    <div class="pin-pad">
+                        <button class="pin-button" onclick="addPin('1')">1</button>
+                        <button class="pin-button" onclick="addPin('2')">2</button>
+                        <button class="pin-button" onclick="addPin('3')">3</button>
+                        <button class="pin-button" onclick="addPin('4')">4</button>
+                        <button class="pin-button" onclick="addPin('5')">5</button>
+                        <button class="pin-button" onclick="addPin('6')">6</button>
+                        <button class="pin-button" onclick="addPin('7')">7</button>
+                        <button class="pin-button" onclick="addPin('8')">8</button>
+                        <button class="pin-button" onclick="addPin('9')">9</button>
+                        <button class="pin-button" onclick="clearPin()">Clear</button>
+                        <button class="pin-button" onclick="addPin('0')">0</button>
+                        <button class="pin-button" onclick="deletePin()">←</button>
+                    </div>
+                    <div id="pinError" class="pin-error">Incorrect PIN. Please try again.</div>
+                    <button id="pinSubmit" class="pin-submit" disabled onclick="submitPin()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <p>Email: info@hcss.com</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Address: 123 Security Ave, Safetown, ST 12345</p>
+            </div>
+            
+            <div class="social-links">
+                <h3>Follow Us</h3>
+                <div>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2025 HCSS. All rights reserved.
+        </div>
+    </div>
+   
+    
+    <script>
+        // // Update the file name display when a file is selected
+        // document.getElementById('file-input').addEventListener('change', function() {
+        //     const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+        //     document.getElementById('file-name').textContent = fileName;
+        // });
+        function triggerFileUpload(inputId) {
+            document.getElementById(inputId).click();
+        }
+
+        function handleFileUpload(input, fileNameId) {
+            const fileName = input.files[0] ? input.files[0].name : '';
+            document.getElementById(fileNameId).textContent = fileName;
+            
+            // Here you would typically add code to handle the actual file upload
+            // For example, using FormData and fetch() to send to a server
+            
+            console.log(`File selected for upload: ${fileName}`);
+        }
+        // const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
+        
+        // function triggerFileUpload(inputId) {
+        //     document.getElementById(inputId).click();
+        // }
+
+        // function handleFileUpload(input, fileNameId, errorId) {
+        //     const fileNameElement = document.getElementById(fileNameId);
+        //     const errorElement = document.getElementById(errorId);
+            
+        //     // Clear previous messages
+        //     fileNameElement.textContent = "";
+        //     errorElement.style.display = "none";
+        //     errorElement.textContent = "";
+            
+        //     if (input.files.length > 0) {
+        //         const file = input.files[0];
+                
+        //         // Check file size
+        //         if (file.size > MAX_FILE_SIZE) {
+        //             // Show error
+        //             errorElement.textContent = `Error: File size (${formatFileSize(file.size)}) exceeds the 1MB limit.`;
+        //             errorElement.style.display = "block";
+                    
+        //             // Reset the input
+        //             input.value = "";
+        //         } else {
+        //             // Show file name with size
+        //             fileNameElement.textContent = `${file.name} (${formatFileSize(file.size)})`;
+                    
+        //             // Here you would typically add code to handle the actual file upload
+        //             console.log(`File selected for upload: ${file.name}, Size: ${formatFileSize(file.size)}`);
+        //         }
+        //     }
+        // }
+        
+        // function formatFileSize(bytes) {
+        //     if (bytes < 1024) {
+        //         return bytes + " bytes";
+        //     } else if (bytes < 1024 * 1024) {
+        //         return (bytes / 1024).toFixed(1) + " KB";
+        //     } else {
+        //         return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+        //     }
+        // }
+        // const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
+        // let uploadedFiles = {
+        //     "Password Vault": [],
+        //     "Bank Accounts": [],
+        //     "Media Storage": []
+        // };
+        
+        // function triggerFileUpload(inputId) {
+        //     document.getElementById(inputId).click();
+        // }
+
+        // function handleFileUpload(input, fileNameId, errorId, category) {
+        //     const fileNameElement = document.getElementById(fileNameId);
+        //     const errorElement = document.getElementById(errorId);
+            
+        //     // Clear previous messages
+        //     fileNameElement.textContent = "";
+        //     errorElement.style.display = "none";
+        //     errorElement.textContent = "";
+            
+        //     if (input.files.length > 0) {
+        //         const file = input.files[0];
+                
+        //         // Check file size
+        //         if (file.size > MAX_FILE_SIZE) {
+        //             // Show error
+        //             errorElement.textContent = `Error: File size (${formatFileSize(file.size)}) exceeds the 1MB limit.`;
+        //             errorElement.style.display = "block";
+                    
+        //             // Reset the input
+        //             input.value = "";
+        //         } else {
+        //             // Show file name with size
+        //             fileNameElement.textContent = `${file.name} (${formatFileSize(file.size)})`;
+                    
+        //             // Store the file information
+        //             const fileInfo = {
+        //                 name: file.name,
+        //                 size: file.size,
+        //                 type: file.type,
+        //                 lastModified: new Date().toLocaleString(),
+        //                 id: generateUniqueId()
+        //             };
+                    
+        //             // Add to our storage
+        //             uploadedFiles[category].push(fileInfo);
+                    
+        //             console.log(`File uploaded to ${category}: ${file.name}, Size: ${formatFileSize(file.size)}`);
+        //         }
+        //     }
+        // }
+        
+        // function formatFileSize(bytes) {
+        //     if (bytes < 1024) {
+        //         return bytes + " bytes";
+        //     } else if (bytes < 1024 * 1024) {
+        //         return (bytes / 1024).toFixed(1) + " KB";
+        //     } else {
+        //         return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+        //     }
+        // }
+        
+        // function generateUniqueId() {
+        //     return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+        // }
+        
+        // function showFiles(category) {
+        //     const modal = document.getElementById("filesModal");
+        //     const filesList = document.getElementById("filesList");
+        //     const modalCategory = document.getElementById("modal-category");
+            
+        //     // Set category name
+        //     modalCategory.textContent = category;
+            
+        //     // Clear previous file list
+        //     filesList.innerHTML = "";
+            
+        //     // Get files for this category
+        //     const files = uploadedFiles[category];
+            
+        //     if (files.length === 0) {
+        //         // No files message
+        //         filesList.innerHTML = '<li class="no-files">No files uploaded yet</li>';
+        //     } else {
+        //         // Add each file to the list
+        //         files.forEach(file => {
+        //             const li = document.createElement("li");
+                    
+        //             // Get appropriate icon based on file type
+        //             let iconClass = "📄"; // Default document icon
+        //             if (file.type.includes("image")) {
+        //                 iconClass = "🖼️";
+        //             } else if (file.type.includes("pdf")) {
+        //                 iconClass = "📑";
+        //             } else if (file.type.includes("text")) {
+        //                 iconClass = "📝";
+        //             } else if (file.type.includes("spreadsheet") || file.type.includes("excel")) {
+        //                 iconClass = "📊";
+        //             }
+                    
+        //             li.innerHTML = `
+        //                 <span class="file-icon">${iconClass}</span>
+        //                 <div>
+        //                     <strong>${file.name}</strong><br>
+        //                     <small>${formatFileSize(file.size)} • Uploaded: ${file.lastModified}</small>
+        //                 </div>
+        //             `;
+        //             filesList.appendChild(li);
+        //         });
+        //     }
+            
+        //     // Show the modal
+        //     modal.style.display = "block";
+        // }
+        
+        // function closeModal() {
+        //     document.getElementById("filesModal").style.display = "none";
+        // }
+        
+        // // Close modal when clicking outside of it
+        // window.onclick = function(event) {
+        //     const modal = document.getElementById("filesModal");
+        //     if (event.target === modal) {
+        //         modal.style.display = "none";
+        //     }
+        // }
+        const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
+        let uploadedFiles = {
+            "Password Vault": [],
+            "Bank Accounts": [],
+            "Media Storage": []
+        };
+        
+        function triggerFileUpload(inputId) {
+            document.getElementById(inputId).click();
+        }
+
+        function handleFileUpload(input, fileNameId, errorId, category) {
+            const fileNameElement = document.getElementById(fileNameId);
+            const errorElement = document.getElementById(errorId);
+            
+            // Clear previous messages
+            fileNameElement.textContent = "";
+            errorElement.style.display = "none";
+            errorElement.textContent = "";
+            
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                
+                // Check file size
+                if (file.size > MAX_FILE_SIZE) {
+                    // Show error
+                    errorElement.textContent = `Error: File size (${formatFileSize(file.size)}) exceeds the 1MB limit.`;
+                    errorElement.style.display = "block";
+                    
+                    // Reset the input
+                    input.value = "";
+                } else {
+                    // Read the file content
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        // Store the file information
+                        const fileInfo = {
+                            name: file.name,
+                            size: file.size,
+                            type: file.type,
+                            lastModified: new Date().toLocaleString(),
+                            id: generateUniqueId(),
+                            content: e.target.result // Store the file content for preview
+                        };
+                        
+                        // Add to our storage
+                        uploadedFiles[category].push(fileInfo);
+                        
+                        // Show file name with size
+                        fileNameElement.textContent = `${file.name} (${formatFileSize(file.size)})`;
+                        
+                        console.log(`File uploaded to ${category}: ${file.name}, Size: ${formatFileSize(file.size)}`);
+                    };
+                    
+                    // Read the file as Data URL (works for both text and binary)
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes < 1024) {
+                return bytes + " bytes";
+            } else if (bytes < 1024 * 1024) {
+                return (bytes / 1024).toFixed(1) + " KB";
+            } else {
+                return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+            }
+        }
+        
+        function generateUniqueId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+        }
+        
+        function showFiles(category) {
+            const modal = document.getElementById("filesModal");
+            const filesList = document.getElementById("filesList");
+            const modalCategory = document.getElementById("modal-category");
+            
+            // Set category name
+            modalCategory.textContent = category;
+            
+            // Clear previous file list
+            filesList.innerHTML = "";
+            
+            // Get files for this category
+            const files = uploadedFiles[category];
+            
+            if (files.length === 0) {
+                // No files message
+                filesList.innerHTML = '<li class="no-files">No files uploaded yet</li>';
+            } else {
+                // Add each file to the list
+                files.forEach(file => {
+                    const li = document.createElement("li");
+                    
+                    // Get appropriate icon based on file type
+                    let iconClass = "📄"; // Default document icon
+                    if (file.type.includes("image")) {
+                        iconClass = "🖼️";
+                    } else if (file.type.includes("pdf")) {
+                        iconClass = "📑";
+                    } else if (file.type.includes("text")) {
+                        iconClass = "📝";
+                    } else if (file.type.includes("spreadsheet") || file.type.includes("excel")) {
+                        iconClass = "📊";
+                    }
+                    
+                    li.innerHTML = `
+                        <span class="file-icon">${iconClass}</span>
+                        <div>
+                            <strong>${file.name}</strong><br>
+                            <small>${formatFileSize(file.size)} • Uploaded: ${file.lastModified}</small>
+                        </div>
+                    `;
+                    
+                    // Make the list item clickable to open the file
+                    li.onclick = function() {
+                        previewFile(file);
+                    };
+                    
+                    filesList.appendChild(li);
+                });
+            }
+            
+            // Show the modal
+            modal.style.display = "block";
+        }
+        
+        function previewFile(file) {
+            const previewModal = document.getElementById("previewModal");
+            const previewArea = document.getElementById("preview-area");
+            const previewTitle = document.getElementById("preview-title");
+            const downloadButton = document.getElementById("download-button");
+            
+            // Set the title
+            previewTitle.textContent = file.name;
+            
+            // Clear previous content
+            previewArea.innerHTML = "";
+            
+            // Configure download button
+            downloadButton.onclick = function() {
+                downloadFile(file);
+            };
+            
+            // Check file type and show appropriate preview
+            if (file.type.includes("image")) {
+                // Image preview
+                const img = document.createElement("img");
+                img.src = file.content;
+                img.alt = file.name;
+                img.className = "preview-image";
+                previewArea.appendChild(img);
+            } else if (file.type.includes("text") || file.type.includes("javascript") || 
+                      file.type.includes("json") || file.type.includes("csv") || 
+                      file.type.includes("xml") || file.type.includes("html")) {
+                // Text preview - fetch the content and show it
+                fetch(file.content)
+                    .then(response => response.text())
+                    .then(text => {
+                        const textArea = document.createElement("textarea");
+                        textArea.className = "preview-text";
+                        textArea.value = text;
+                        textArea.readonly = true;
+                        previewArea.appendChild(textArea);
+                    })
+                    .catch(error => {
+                        previewArea.innerHTML = `<div class="preview-error">Error loading text content: ${error.message}</div>`;
+                    });
+            } else {
+                // For other file types, show a message that preview is not available
+                previewArea.innerHTML = `
+                    <div>
+                        <p>Preview not available for this file type.</p>
+                        <p>Click the Download button below to save the file.</p>
+                    </div>
+                `;
+            }
+            
+            // Show the preview modal
+            previewModal.style.display = "block";
+        }
+        
+        function downloadFile(file) {
+            // Create an invisible link element
+            const link = document.createElement("a");
+            link.href = file.content;
+            link.download = file.name;
+            
+            // Add to body, click, and remove
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+        
+        // Close modals when clicking outside of them
+        window.onclick = function(event) {
+            const filesModal = document.getElementById("filesModal");
+            const previewModal = document.getElementById("previewModal");
+            
+            if (event.target === filesModal) {
+                filesModal.style.display = "none";
+            }
+            
+            if (event.target === previewModal) {
+                previewModal.style.display = "none";
+            }
+        }
+        let pins = {
+            "Password Vault": "",
+            "Bank Accounts": "",
+            "Media Storage": ""
+        };
+        
+        let currentCategory = "";
+        let currentPin = "";
+        let isSettingPin = false;
+        let confirmPin = "";
+        
+        function showFiles(category) {
+            currentCategory = category;
+            
+            if (!pins[category]) {
+                // PIN needs to be set
+                showPinModal(true);
+            } else {
+                // PIN needs to be entered
+                showPinModal(false);
+            }
+        }
+        
+        function showPinModal(isSetup) {
+            isSettingPin = isSetup;
+            currentPin = "";
+            confirmPin = "";
+            
+            const modal = document.getElementById("pinModal");
+            const title = document.getElementById("pinTitle");
+            const message = document.getElementById("pinMessage");
+            const error = document.getElementById("pinError");
+            
+            title.textContent = isSetup ? "Set PIN" : "Enter PIN";
+            message.textContent = isSetup ? 
+                "Please set a 4-digit PIN" : 
+                "Please enter your 4-digit PIN";
+            error.style.display = "none";
+            
+            updatePinDisplay();
+            modal.style.display = "block";
+        }
+        
+        function addPin(digit) {
+            if (currentPin.length < 4) {
+                currentPin += digit;
+                updatePinDisplay();
+            }
+        }
+        
+        function deletePin() {
+            if (currentPin.length > 0) {
+                currentPin = currentPin.slice(0, -1);
+                updatePinDisplay();
+            }
+        }
+        
+        function clearPin() {
+            currentPin = "";
+            updatePinDisplay();
+        }
+        
+        function updatePinDisplay() {
+            const display = document.getElementById("pinDisplay");
+            const submit = document.getElementById("pinSubmit");
+            
+            let displayText = "____";
+            if (currentPin.length > 0) {
+                displayText = currentPin.padEnd(4, '_');
+            }
+            
+            display.textContent = displayText.split('').map(char => 
+                char === '_' ? '_' : '•'
+            ).join('');
+            
+            // Enable submit button only when PIN is 4 digits
+            submit.disabled = currentPin.length !== 4;
+        }
+        
+        function submitPin() {
+            const error = document.getElementById("pinError");
+            
+            if (isSettingPin) {
+                if (!confirmPin) {
+                    // Store first entry and ask for confirmation
+                    confirmPin = currentPin;
+                    currentPin = "";
+                    document.getElementById("pinMessage").textContent = 
+                        "Please confirm your PIN";
+                    updatePinDisplay();
+                    error.style.display = "none";
+                } else {
+                    // Verify confirmation matches
+                    if (currentPin === confirmPin) {
+                        // PIN set successfully
+                        pins[currentCategory] = currentPin;
+                        closePinModal();
+                        showFilesList();
+                    } else {
+                        // PINs don't match
+                        error.textContent = "PINs don't match. Please try again.";
+                        error.style.display = "block";
+                        currentPin = "";
+                        confirmPin = "";
+                        document.getElementById("pinMessage").textContent = 
+                            "Please set a 4-digit PIN";
+                        updatePinDisplay();
+                    }
+                }
+            } else {
+                // Verify PIN
+                if (currentPin === pins[currentCategory]) {
+                    closePinModal();
+                    showFilesList();
+                } else {
+                    error.textContent = "Incorrect PIN. Please try again.";
+                    error.style.display = "block";
+                    currentPin = "";
+                    updatePinDisplay();
+                }
+            }
+        }
+        
+        function closePinModal() {
+            const modal = document.getElementById("pinModal");
+            modal.style.display = "none";
+            currentPin = "";
+            confirmPin = "";
+            updatePinDisplay();
+        }
+        
+        function showFilesList() {
+            // Show the files modal with the list of files
+            const modal = document.getElementById("filesModal");
+            const filesList = document.getElementById("filesList");
+            const modalCategory = document.getElementById("modal-category");
+            
+            modalCategory.textContent = currentCategory;
+            filesList.innerHTML = "";
+            
+            const files = uploadedFiles[currentCategory];
+            
+            if (files.length === 0) {
+                filesList.innerHTML = '<li class="no-files">No files uploaded yet</li>';
+            } else {
+                files.forEach(file => {
+                    const li = document.createElement("li");
+                    
+                    let iconClass = "📄";
+                    if (file.type.includes("image")) {
+                        iconClass = "🖼️";
+                    } else if (file.type.includes("pdf")) {
+                        iconClass = "📑";
+                    } else if (file.type.includes("text")) {
+                        iconClass = "📝";
+                    } else if (file.type.includes("spreadsheet") || file.type.includes("excel")) {
+                        iconClass = "📊";
+                    }
+                    
+                    li.innerHTML = `
+                        <span class="file-icon">${iconClass}</span>
+                        <div>
+                            <strong>${file.name}</strong><br>
+                            <small>${formatFileSize(file.size)} • Uploaded: ${file.lastModified}</small>
+                        </div>
+                    `;
+                    
+                    li.onclick = function() {
+                        previewFile(file);
+                    };
+                    
+                    filesList.appendChild(li);
+                });
+            }
+            
+            modal.style.display = "block";
+        }
+        
+        // Close any modal when clicking outside
+        window.onclick = function(event) {
+            const modals = [
+                document.getElementById("filesModal"),
+                document.getElementById("previewModal"),
+                document.getElementById("pinModal")
+            ];
+            
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        }
+        function updateTime() {
+    const now = new Date();
+    const timeElement = document.getElementById('current-time');
+    
+    // Format: HH:MM:SS
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    
+    timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+// Update time immediately
+updateTime();
+
+// Update time every second
+setInterval(updateTime, 1000);
+function formatDateTime(date) {
+  const options = { 
+    weekday: 'short',
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  };
+  return date.toLocaleString('en-US', options);
+}
+
+// Update current date and time
+function updateCurrentDateTime() {
+  const now = new Date();
+  document.getElementById('current-datetime').textContent = formatDateTime(now);
+}
+
+// Initialize last modified time (you would typically get this from your backend)
+function initLastModified() {
+  // This is just an example - in a real application, this would come from your database
+  const lastModified = new Date();
+  lastModified.setHours(lastModified.getHours() - 2); // Example: 2 hours ago
+  document.getElementById('last-modified-time').textContent = formatDateTime(lastModified);
+}
+
+// Initialize time displays when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  updateCurrentDateTime();
+  initLastModified();
+  
+  // Update current time every second
+  setInterval(updateCurrentDateTime, 1000);
+});
+    </script>
+</body>
+</html> 

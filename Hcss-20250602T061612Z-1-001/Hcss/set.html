@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Settings</title>
+    <style>
+        :root {
+            --primary-color: #0c3b60;
+            --accent-color: #e63946;
+            --text-color: #333;
+            --light-text: #f8f9fa;
+            --border-color: #dee2e6;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --success-color: #2a9d8f;
+            --danger-color: #e63946;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .settings-container {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .settings-content {
+            padding: 25px;
+        }
+
+        .setting-section {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 25px;
+        }
+
+        .setting-section:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(12, 59, 96, 0.25);
+        }
+
+        .current-info {
+            background-color: rgba(12, 59, 96, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .current-info span {
+            font-weight: bold;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0a2e4a;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c1272d;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: rgba(42, 157, 143, 0.2);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .alert-danger {
+            background-color: rgba(230, 57, 70, 0.2);
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+        }
+
+        .security-label {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .back-link {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .back-link i {
+            margin-right: 5px;
+        }
+
+        .password-requirements {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .password-requirements ul {
+            list-style-type: none;
+            margin-top: 5px;
+        }
+
+        .password-requirements li {
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-requirements li i {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        .requirement-met {
+            color: var(--success-color);
+        }
+
+        .requirement-unmet {
+            color: #999;
+        }
+
+        .session-info {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .session-info i {
+            margin-right: 5px;
+        }
+
+        .session-timer {
+            font-weight: bold;
+            margin: 0 5px;
+        }
+
+        @media (max-width: 576px) {
+            .settings-container {
+                max-width: 100%;
+            }
+            
+            .back-link span {
+                display: none;
+            }
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="settings-container">
+        <div class="header">
+            <a href="#" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Dashboard</span> 
+            </a>
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1>Account Settings</h1>
+            <p>Update your security credentials</p>
+        </div>
+
+        <div class="settings-content">
+            <div class="alert alert-success" id="successAlert">
+                Settings updated successfully.
+            </div>
+            <div class="alert alert-danger" id="dangerAlert">
+                Error: Unable to update settings. Please try again.
+            </div>
+
+            <div class="setting-section">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Change Username
+                    <span class="security-label">Restricted</span>
+                </h2>
+                <div class="current-info">
+                    Current username: <span id="currentUsername">Admin_User2024</span>
+                </div>
+                <form id="usernameForm">
+                    <div class="form-group">
+                        <label class="form-label" for="newUsername">New Username</label>
+                        <input type="text" class="form-control" id="newUsername" placeholder="Enter new username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="currentPassword">Current Password</label>
+                        <input type="password" class="form-control" id="currentPassword" placeholder="Enter your current password">
+                    </div>
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-primary" id="changeUsernameBtn">
+                            <span class="loading-spinner hidden" id="usernameSpinner"></span>
+                            Update Username
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="setting-section">
+                <h2 class="section-title">
+                    <i class="fas fa-key"></i>
+                    Reset Password
+                    <span class="security-label">Restricted</span>
+                </h2>
+                <form id="passwordForm">
+                    <div class="form-group">
+                        <label class="form-label" for="currentPasswordReset">Current Password</label>
+                        <input type="password" class="form-control" id="currentPasswordReset" placeholder="Enter your current password">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newPassword">New Password</label>
+                        <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+                        <div class="password-requirements">
+                            Password requirements:
+                            <ul>
+                                <li class="requirement-unmet" id="req-length"><i class="fas fa-circle"></i> At least 16 characters</li>
+                                <li class="requirement-unmet" id="req-uppercase"><i class="fas fa-circle"></i> At least one uppercase letter</li>
+                                <li class="requirement-unmet" id="req-lowercase"><i class="fas fa-circle"></i> At least one lowercase letter</li>
+                                <li class="requirement-unmet" id="req-number"><i class="fas fa-circle"></i> At least one number</li>
+                                <li class="requirement-unmet" id="req-special"><i class="fas fa-circle"></i> At least one special character</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
+                    </div>
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-primary" id="resetPasswordBtn">
+                            <span class="loading-spinner hidden" id="passwordSpinner"></span>
+                            Reset Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="session-info">
+            <i class="fas fa-clock"></i>
+            Session expires in: <span class="session-timer" id="sessionTimer">14:59</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Session timer functionality
+            let timeLeft = 15 * 60; // 15 minutes in seconds
+            const timerElement = document.getElementById('sessionTimer');
+            
+            function updateTimer() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert('Your session has expired. Please log in again.');
+                    // In a real implementation, redirect to login page
+                } else {
+                    timeLeft--;
+                }
+            }
+            
+            const timerInterval = setInterval(updateTimer, 1000);
+
+            // Password validation
+            const newPasswordInput = document.getElementById('newPassword');
+            const reqLength = document.getElementById('req-length');
+            const reqUppercase = document.getElementById('req-uppercase');
+            const reqLowercase = document.getElementById('req-lowercase');
+            const reqNumber = document.getElementById('req-number');
+            const reqSpecial = document.getElementById('req-special');
+            
+            newPasswordInput.addEventListener('input', function() {
+                const password = this.value;
+                
+                // Check length
+                if (password.length >= 16) {
+                    reqLength.classList.replace('requirement-unmet', 'requirement-met');
+                    reqLength.querySelector('i').classList.replace('fa-circle', 'fa-check-circle');
+                } else {
+                    reqLength.classList.replace('requirement-met', 'requirement-unmet');
+                    reqLength.querySelector('i').classList.replace('fa-check-circle', 'fa-circle');
+                }
+                
+                // Check uppercase
+                if (/[A-Z]/.test(password)) {
+                    reqUppercase.classList.replace('requirement-unmet', 'requirement-met');
+                    reqUppercase.querySelector('i').classList.replace('fa-circle', 'fa-check-circle');
+                } else {
+                    reqUppercase.classList.replace('requirement-met', 'requirement-unmet');
+                    reqUppercase.querySelector('i').classList.replace('fa-check-circle', 'fa-circle');
+                }
+                
+                // Check lowercase
+                if (/[a-z]/.test(password)) {
+                    reqLowercase.classList.replace('requirement-unmet', 'requirement-met');
+                    reqLowercase.querySelector('i').classList.replace('fa-circle', 'fa-check-circle');
+                } else {
+                    reqLowercase.classList.replace('requirement-met', 'requirement-unmet');
+                    reqLowercase.querySelector('i').classList.replace('fa-check-circle', 'fa-circle');
+                }
+                
+                // Check number
+                if (/\d/.test(password)) {
+                    reqNumber.classList.replace('requirement-unmet', 'requirement-met');
+                    reqNumber.querySelector('i').classList.replace('fa-circle', 'fa-check-circle');
+                } else {
+                    reqNumber.classList.replace('requirement-met', 'requirement-unmet');
+                    reqNumber.querySelector('i').classList.replace('fa-check-circle', 'fa-circle');
+                }
+                
+                // Check special character
+                if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+                    reqSpecial.classList.replace('requirement-unmet', 'requirement-met');
+                    reqSpecial.querySelector('i').classList.replace('fa-circle', 'fa-check-circle');
+                } else {
+                    reqSpecial.classList.replace('requirement-met', 'requirement-unmet');
+                    reqSpecial.querySelector('i').classList.replace('fa-check-circle', 'fa-circle');
+                }
+            });
+
+            // Change username functionality
+            document.getElementById('changeUsernameBtn').addEventListener('click', function() {
+                const newUsername = document.getElementById('newUsername').value;
+                const currentPassword = document.getElementById('currentPassword').value;
+                
+                if (!newUsername || !currentPassword) {
+                    document.getElementById('dangerAlert').textContent = 'Error: All fields are required.';
+                    document.getElementById('dangerAlert').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('dangerAlert').style.display = 'none';
+                    }, 3000);
+                    return;
+                }
+                
+                // Show loading spinner
+                document.getElementById('usernameSpinner').classList.remove('hidden');
+                
+                // Simulate API call
+                setTimeout(function() {
+                    document.getElementById('usernameSpinner').classList.add('hidden');
+                    
+                    // Update displayed username
+                    document.getElementById('currentUsername').textContent = newUsername;
+                    
+                    // Reset form
+                    document.getElementById('newUsername').value = '';
+                    document.getElementById('currentPassword').value = '';
+                    
+                    // Show success message
+                    document.getElementById('successAlert').textContent = 'Username updated successfully.';
+                    document.getElementById('successAlert').style.display = 'block';
+                    
+                    setTimeout(() => {
+                        document.getElementById('successAlert').style.display = 'none';
+                    }, 3000);
+                }, 1500);
+            });
+
+            // Reset password functionality
+            document.getElementById('resetPasswordBtn').addEventListener('click', function() {
+                const currentPassword = document.getElementById('currentPasswordReset').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (!currentPassword || !newPassword || !confirmPassword) {
+                    document.getElementById('dangerAlert').textContent = 'Error: All fields are required.';
+                    document.getElementById('dangerAlert').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('dangerAlert').style.display = 'none';
+                    }, 3000);
+                    return;
+                }
+                
+                if (newPassword !== confirmPassword) {
+                    document.getElementById('dangerAlert').textContent = 'Error: Passwords do not match.';
+                    document.getElementById('dangerAlert').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('dangerAlert').style.display = 'none';
+                    }, 3000);
+                    return;
+                }
+                
+                // Check password requirements
+                if (
+                    newPassword.length < 16 ||
+                    !/[A-Z]/.test(newPassword) ||
+                    !/[a-z]/.test(newPassword) ||
+                    !/\d/.test(newPassword) ||
+                    !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(newPassword)
+                ) {
+                    document.getElementById('dangerAlert').textContent = 'Error: Password does not meet all requirements.';
+                    document.getElementById('dangerAlert').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('dangerAlert').style.display = 'none';
+                    }, 3000);
+                    return;
+                }
+                
+                // Show loading spinner
+                document.getElementById('passwordSpinner').classList.remove('hidden');
+                
+                // Simulate API call
+                setTimeout(function() {
+                    document.getElementById('passwordSpinner').classList.add('hidden');
+                    
+                    // Reset form
+                    document.getElementById('currentPasswordReset').value = '';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('confirmPassword').value = '';
+                    
+                    // Reset password requirements UI
+                    document.querySelectorAll('.requirement-met').forEach(el => {
+                        el.classList.replace('requirement-met', 'requirement-unmet');
+                        el.querySelector('i').classList.replace('fa-check-circle', 'fa-circle');
+                    });
+                    
+                    // Show success message
+                    document.getElementById('successAlert').textContent = 'Password reset successfully.';
+                    document.getElementById('successAlert').style.display = 'block';
+                    
+                    setTimeout(() => {
+                        document.getElementById('successAlert').style.display = 'none';
+                    }, 3000);
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

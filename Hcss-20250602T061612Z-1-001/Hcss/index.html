@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HCSS - Highly Confidential Security System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        
+        .navbar {
+            background-color: #003366;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            justify-content: space-evenly;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 16px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: #0055a4;
+        }
+        
+        .main-content {
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+        
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 45px;
+        }
+        .profile-btn {
+            background-color: #003366;
+            color: white;
+            border: 1px solid white;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        /* Login Button */
+        .login-btn {
+            background-color: lightblue;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+    
+        }
+        #login-button{
+            text-decoration: none;
+        }
+        
+        /* Settings Button */
+        .settings-btn {
+            background-color: #4c98af;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .features-table {
+            width: 70%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            height: 300px;
+        }
+        
+        .features-table th {
+            background-color: #336699;
+            color: white;
+            padding: 10px;
+        }
+        
+        .features-table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        
+        .footer {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info, .social-links {
+            text-align: left;
+        }
+        
+        .social-links a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        .copyright {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+     <!-- Navigation Bar -->
+     <div class="navbar">
+        <div class="logo">HCSS</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="locker.html">Locker System</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div>
+            <button id="settings-button" class="settings-btn">Settings</button>
+            <button id="login-button" class="login-btn">
+                <a href="login.html">Login</a>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            Highly Confidential Security System (HCSS)
+        </div>
+        
+        <div class="content">
+            <h2 align="center">Welcome to HCSS</h2>
+            <p align="center">Secure storage for your confidential information</p>
+            
+            <table class="features-table">
+                <tr>
+                    <th colspan="2">System Features</th>
+                </tr>
+                <tr>
+                    <td width="50%">✓ Password Management</td>
+                    <td>✓ Bank Account Information</td>
+                </tr>
+                <tr>
+                    <td>✓ Document Storage</td>
+                    <td>✓ Secure Media Vault</td>
+                </tr>
+                <tr>
+                    <td>✓ Biometric Security</td>
+                    <td>✓ Encrypted Storage</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <p>Email: info@hcss.com</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Address: 123 Security Ave, Safetown, ST 12345</p>
+            </div>
+            
+            <div class="social-links">
+                <h3>Follow Us</h3>
+                <div>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2025 HCSS. All rights reserved.
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for enhanced interactivity
+        document.addEventListener("DOMContentLoaded", function() {
+            // Highlight current page in navbar
+            const currentLocation = window.location.href;
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            navLinks.forEach(link => {
+                if (link.href === currentLocation) {
+                    link.style.backgroundColor = "#0055a4";
+                }
+            });
+            
+            // Add smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== "#") {
+                        document.querySelector(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

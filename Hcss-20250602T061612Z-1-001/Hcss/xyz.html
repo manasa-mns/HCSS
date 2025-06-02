@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 12px 16px;
+            transition: 0.3s;
+            color: #333;
+            width: 50%;
+            margin: 0;
+        }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        .tab button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Account Settings</h2>
+        
+        <div class="tab">
+            <!-- <button class="tablink active" onclick="openTab(event, 'usernameTab')">Change Username</button> -->
+            <button class="tablink" onclick="openTab(event, 'passwordTab')">Change Password</button>
+        </div>
+        
+        <!-- Username Tab -->
+        <!-- <div id="usernameTab" class="tabcontent" style="display: block;">
+            <form id="usernameForm">
+                <div class="form-group">
+                    <label for="currentPassword">Current Username</label>
+                    <input type="password" id="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newUsername">New Username</label>
+                    <input type="text" id="newUsername" required>
+                </div>
+                <button type="submit">Update Username</button>
+            </form>
+            <div id="usernameMessage" class="message"></div>
+        </div> -->
+        
+        <!-- Password Tab -->
+        <div id="passwordTab" class="tabcontent">
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="currentPasswordReset">Current Password</label>
+                    <input type="password" id="currentPasswordReset" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit">Update Password</button>
+            </form>
+            <div id="passwordMessage" class="message"></div>
+        </div>
+        
+        <!-- Forgot Password Link -->
+        <div style="text-align: center; margin-top: 15px;">
+            <a href="#" id="forgotPassword">Forgot your password?</a>
+            <div id="resetForm" style="display: none; margin-top: 15px;">
+                <div class="form-group">
+                    <label for="emailReset">Email Address</label>
+                    <input type="email" id="emailReset" required>
+                </div>
+                <button id="sendResetLink">Send Reset Link</button>
+                <div id="resetMessage" class="message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        
+        // Username update functionality
+        // document.getElementById("usernameForm").addEventListener("submit", function(e) {
+        //     e.preventDefault();
+            
+        //     var currentPassword = document.getElementById("currentPassword").value;
+        //     var newUsername = document.getElementById("newUsername").value;
+        //     var messageElement = document.getElementById("usernameMessage");
+            
+        //     // Simple validation
+        //     if (currentPassword.length < 6) {
+        //         showMessage(messageElement, "Password must be at least 6 characters", "error");
+        //         return;
+        //     }
+            
+        //     if (newUsername.length < 4) {
+        //         showMessage(messageElement, "Username must be at least 4 characters", "error");
+        //         return;
+        //     }
+            
+        //     // In a real application, you would send this data to the server
+        //     // This is just a simulation
+        //     setTimeout(function() {
+        //         showMessage(messageElement, "Username updated successfully!", "success");
+        //         document.getElementById("usernameForm").reset();
+        //     }, 1000);
+        // });
+        
+        // Password update functionality
+        document.getElementById("passwordF orm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            var currentPassword = document.getElementById("currentPasswordReset").value;
+            var newPassword = document.getElementById("newPassword").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var messageElement = document.getElementById("passwordMessage");
+            
+            // Simple validation
+            if (currentPassword.length < 6) {
+                showMessage(messageElement, "Current password must be at least 6 characters", "error");
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showMessage(messageElement, "New password must be at least 6 characters", "error");
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showMessage(messageElement, "Passwords do not match", "error");
+                return;
+            }
+            
+            // In a real application, you would send this data to the server
+            // This is just a simulation
+            setTimeout(function() {
+                showMessage(messageElement, "Password updated successfully!", "success");
+                document.getElementById("passwordForm").reset();
+            }, 1000);
+        });
+        
+        // Forgot password functionality
+        document.getElementById("forgotPassword").addEventListener("click", function(e) {
+            e.preventDefault();
+            var resetForm = document.getElementById("resetForm");
+            resetForm.style.display = resetForm.style.display === "none" ? "block" : "none";
+        });
+        
+        document.getElementById("sendResetLink").addEventListener("click", function() {
+            var email = document.getElementById("emailReset").value;
+            var messageElement = document.getElementById("resetMessage");
+            
+            // Simple validation
+            if (!email || !email.includes("@")) {
+                showMessage(messageElement, "Please enter a valid email address", "error");
+                return;
+            }
+            
+            // In a real application, you would send this to the server
+            // This is just a simulation
+            setTimeout(function() {
+                showMessage(messageElement, "Password reset link has been sent to your email", "success");
+                document.getElementById("emailReset").value = "";
+            }, 1000);
+        });
+        
+        // Helper function to show messages
+        function showMessage(element, message, type) {
+            element.textContent = message;
+            element.className = "message " + type;
+            element.style.display = "block";
+            
+            // Hide message after 5 seconds
+            setTimeout(function() {
+                element.style.display = "none";
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

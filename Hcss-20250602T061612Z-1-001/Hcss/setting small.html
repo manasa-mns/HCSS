@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: auto;
+        }
+        h2 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .message {
+            margin-top: 10px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Change Username</h2>
+    <div class="form-group">
+        <label>New Username:</label>
+        <input type="text" id="newUsername" placeholder="Enter new username">
+    </div>
+    <button class="btn" onclick="changeUsername()">Update Username</button>
+    <p class="message" id="usernameMessage"></p>
+</div>
+
+<br>
+
+<div class="container">
+    <h2>Reset Password</h2>
+    <div class="form-group">
+        <label>New Password:</label>
+        <input type="password" id="newPassword" placeholder="Enter new password">
+    </div>
+    <div class="form-group">
+        <label>Confirm Password:</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm new password">
+    </div>
+    <button class="btn" onclick="resetPassword()">Reset Password</button>
+    <p class="message" id="passwordMessage"></p>
+</div>
+
+<script>
+    function changeUsername() {
+        let newUsername = document.getElementById("newUsername").value;
+        if (newUsername.trim() === "") {
+            document.getElementById("usernameMessage").textContent = "Username cannot be empty!";
+            document.getElementById("usernameMessage").style.color = "red";
+            return;
+        }
+        document.getElementById("usernameMessage").textContent = "Username updated successfully!";
+        document.getElementById("usernameMessage").style.color = "green";
+    }
+
+    function resetPassword() {
+        let newPassword = document.getElementById("newPassword").value;
+        let confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (newPassword === "" || confirmPassword === "") {
+            document.getElementById("passwordMessage").textContent = "Fields cannot be empty!";
+            document.getElementById("passwordMessage").style.color = "red";
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            document.getElementById("passwordMessage").textContent = "Passwords do not match!";
+            document.getElementById("passwordMessage").style.color = "red";
+        } else {
+            document.getElementById("passwordMessage").textContent = "Password reset successfully!";
+            document.getElementById("passwordMessage").style.color = "green";
+        }
+    }
+</script>
+
+</body>
+</html>

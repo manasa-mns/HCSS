@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HCSS - About Us</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        
+        .navbar {
+            background-color: #003366;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 16px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: #0055a4;
+        }
+        
+        .nav-links a.active {
+            background-color: #0055a4;
+        }
+        
+        .main-content {
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+        
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+        }
+        
+        .content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-section {
+            background-color:lightskyblue;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            height: 700px;
+            font-size: 25px;
+        }
+        
+        .about-section h2 {
+            color: #003366;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .requirements-section {
+            
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 30px;
+            width: 1400px;
+            font-size: 25px;
+        }
+        
+        .requirements-box {
+            flex-basis: 48%;
+            background-color: lightskyblue;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .requirements-box h3 {
+            color: #003366;
+            border-bottom: 2px solid #336699;
+            padding-bottom: 10px;
+        }
+        
+        .requirements-box ul {
+            padding-left: 20px;
+        }
+        
+        .requirements-box li {
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info, .social-links {
+            text-align: left;
+        }
+        
+        .social-links a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        .copyright {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">HCSS</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#" class="active">About Us</a>
+            <a href="locker.html">Locker System</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            About HCSS - Highly Confidential Security System
+        </div>
+        
+        <div class="content">
+            <div class="about-section">
+                <h2>Our Mission</h2>
+                <p>
+                    Due to busy lifestyles, we often struggle to remember all our confidential data such as:
+                </p>
+                <ul>
+                    <li>Email IDs and passwords</li>
+                    <li>Bank account numbers</li>
+                    <li>Insurance policy numbers</li>
+                    <li>PAN numbers</li>
+                    <li>Driving license numbers</li>
+                    <li>Passport numbers</li>
+                    <li>Educational certificate numbers</li>
+                    <li>Highly valuable scanned documents</li>
+                    <li>Confidential photos, music, and videos</li>
+                </ul>
+                
+                <p>
+                    HCSS is a comprehensive software locker which can securely hold all your sign-in information, 
+                    similar to the functionality of Single Sign-On (SSO) services. What sets us apart is the ability 
+                    to couple a biometric hardware component to strengthen the security system even further.
+                </p>
+                
+                <p>
+                    Our system assists users in logging into client systems for which it is storing passwords, 
+                    either through our intuitive software interface or directly via hardware interface. We've developed 
+                    a highly secure web application featuring new security algorithms and hardware systems, allowing you 
+                    to store all your confidential data behind a single set of credentials.
+                </p>
+            </div>
+            
+            <div class="requirements-section">
+                <div class="requirements-box">
+                    <h3>Functional Requirements</h3>
+                    <ul>
+                        <li>Advanced Security System (Software and hardware)</li>
+                        <li>Email ID and password locker</li>
+                        <li>Bank account information locker</li>
+                        <li>Videos locker</li>
+                        <li>Images locker</li>
+                        <li>Music locker</li>
+                        <li>Admin panel</li>
+                        <li>User management</li>
+                    </ul>
+                </div>
+                
+                <div class="requirements-box">
+                    <h3>Report Features</h3>
+                    <ul>
+                        <li>Administrative reports</li>
+                        <li>Bank information reports</li>
+                        <li>Viewable and downloadable reports with password protection</li>
+                        <li>Usage statistics</li>
+                        <li>Security audit logs</li>
+                        <li>Access history</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <p>Email: info@hcss.com</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Address: 123 Security Ave, Safetown, ST 12345</p>
+            </div>
+            
+            <div class="social-links">
+                <h3>Follow Us</h3>
+                <div>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2025 HCSS. All rights reserved.
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for enhanced interactivity
+        document.addEventListener("DOMContentLoaded", function() {
+            // Add smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== "#") {
+                        document.querySelector(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

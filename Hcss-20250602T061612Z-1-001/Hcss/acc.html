@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCSS Account Settings</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        main {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            height: fit-content;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--dark-color);
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar-menu a:hover {
+            background-color: var(--light-color);
+        }
+        
+        .sidebar-menu a.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .content {
+            flex: 1;
+            margin-left: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 30px;
+        }
+        
+        .settings-card {
+            background-color: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #e1e1e1;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--dark-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .password-strength {
+            height: 5px;
+            background-color: #eee;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            background-color: #e74c3c;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .password-requirements {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        
+        .password-requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .requirement-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            color: white;
+            font-size: 10px;
+            background-color: #ccc;
+        }
+        
+        .requirement-met .requirement-icon {
+            background-color: var(--success-color);
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .card-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-secondary {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d0d0d0;
+        }
+        
+        .btn-danger {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        
+        .alert {
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        
+        .two-factor-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .two-factor-info {
+            flex: 1;
+        }
+        
+        .two-factor-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .two-factor-desc {
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--success-color);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .session-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .session-table th, .session-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .session-table th {
+            font-weight: 500;
+            color: #7f8c8d;
+        }
+        
+        .session-current {
+            color: var(--success-color);
+            font-weight: 500;
+            font-size: 13px;
+        }
+        
+        .help-text {
+            display: block;
+            margin-top: 5px;
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+        
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">HCSS</div>
+                <div class="user-profile">
+                    <div class="user-avatar">JD</div>
+                    <span>John Doe</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <main>
+            <div class="sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#" class="active">Account Settings</a></li>
+                    <li><a href="settings.html">Security Settings</a></li>
+                    <li><a href="#">Locker Management</a></li>
+                    <li><a href="#">Biometric Configuration</a></li>
+                    <li><a href="#">Backup & Recovery</a></li>
+                    <li><a href="#">Activity Logs</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+            </div>
+            
+            <div class="content">
+                <h1 class="section-title">Account Settings</h1>
+                
+                <div class="alert alert-info">
+                    Your last account update was on March 1, 2025. Regular updates to your account credentials enhance your security.
+                </div>
+                
+                <div class="settings-card">
+                    <h2 class="card-title">Basic Account Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="form-control" value="john.doe">
+                        <span class="help-text">Your username is used for login purposes only and is not visible to others.</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" value="john.doe@example.com">
+                        <span class="help-text">Your email is used for account recovery and security notifications.</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" value="+1 (555) 123-4567">
+                        <span class="help-text">Your phone number is used for two-factor authentication and recovery.</span>
+                    </div>
+                    
+                    <div style="text-align: right;">
+                        <button class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h2 class="card-title">Change Password</h2>
+                    
+                    <div class="form-group">
+                        <label for="current-password">Current Password</label>
+                        <input type="password" id="current-password" class="form-control">
+                        <span class="help-text">Enter your current password to verify your identity.</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-password">New Password</label>
+                        <input type="password" id="new-password" class="form-control">
+                        <div class="password-strength">
+                            <div class="password-strength-bar" style="width: 60%; background-color: #f39c12;"></div>
+                        </div>
+                        
+                        <div class="password-requirements">
+                            <div class="password-requirement requirement-met">
+                                <span class="requirement-icon">✓</span>
+                                At least 12 characters
+                            </div>
+                            <div class="password-requirement requirement-met">
+                                <span class="requirement-icon">✓</span>
+                                Uppercase and lowercase letters
+                            </div>
+                            <div class="password-requirement">
+                                <span class="requirement-icon">✓</span>
+                                At least one number
+                            </div>
+                            <div class="password-requirement requirement-met">
+                                <span class="requirement-icon">✓</span>
+                                At least one special character
+                            </div>
+                            <div class="password-requirement">
+                                <span class="requirement-icon">✓</span>
+                                Not similar to previous passwords
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm New Password</label>
+                        <input type="password" id="confirm-password" class="form-control">
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <strong>Important:</strong> After changing your password, you'll be logged out of all other devices and will need to log in again.
+                    </div>
+                    
+                    <div style="text-align: right;">
+                        <button class="btn btn-secondary">Generate Strong Password</button>
+                        <button class="btn btn-primary" style="margin-left: 10px;">Update Password</button>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h2 class="card-title">Two-Factor Authentication</h2>
+                    
+                    <div class="two-factor-section">
+                        <div class="two-factor-info">
+                            <div class="two-factor-title">Authenticator App</div>
+                            <div class="two-factor-desc">Use an app like Google Authenticator to generate verification codes</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="two-factor-section">
+                        <div class="two-factor-info">
+                            <div class="two-factor-title">SMS Authentication</div>
+                            <div class="two-factor-desc">Receive verification codes via text message</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="two-factor-section">
+                        <div class="two-factor-info">
+                            <div class="two-factor-title">Email Authentication</div>
+                            <div class="two-factor-desc">Receive verification codes via email</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="two-factor-section" style="border-bottom: none;">
+                        <div class="two-factor-info">
+                            <div class="two-factor-title">Security Key</div>
+                            <div class="two-factor-desc">Use a physical security key like YubiKey</div>
+                        </div>
+                        <button class="btn btn-secondary">Configure</button>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h2 class="card-title">Active Sessions</h2>
+                    
+                    <p>These are devices that are currently logged into your account. You can revoke access from any device.</p>
+                    
+                    <table class="session-table">
+                        <thead>
+                            <tr>
+                                <th>Device</th>
+                                <th>Location</th>
+                                <th>Last Active</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Windows PC - Chrome <br>
+                                    <span class="session-current">Current session</span>
+                                </td>
+                                <td>New York, USA</td>
+                                <td>Now</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>iPhone 15 - Safari</td>
+                                <td>New York, USA</td>
+                                <td>2 hours ago</td>
+                                <td><button class="btn btn-secondary">Revoke</button></td>
+                            </tr>
+                            <tr>
+                                <td>MacBook Pro - Firefox</td>
+                                <td>Boston, USA</td>
+                                <td>Yesterday</td>
+                                <td><button class="btn btn-secondary">Revoke</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div style="text-align: right; margin-top: 15px;">
+                        <button class="btn btn-danger">Log Out Of All Other Devices</button>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h2 class="card-title">Account Recovery Options</h2>
+                    
+                    <div class="form-group">
+                        <label>Recovery Email</label>
+                        <input type="email" class="form-control" value="john.backup@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Recovery Questions</label>
+                        <select class="form-control" style="margin-bottom: 10px;">
+                            <option>What was the name of your first pet?</option>
+                        </select>
+                        <input type="password" class="form-control" value="••••••••••">
+                        
+                        <select class="form-control" style="margin: 10px 0;">
+                            <option>In what city were you born?</option>
+                        </select>
+                        <input type="password" class="form-control" value="••••••••••">
+                    </div>
+                    
+                    <div style="text-align: right;">
+                        <button class="btn btn-primary">Update Recovery Options</button>
+                    </div>
+                </div>
+                
+                <div class="settings-card" style="background-color: #fdedec; border-color: #e74c3c;">
+                    <h2 class="card-title" style="color: #c0392b;">Danger Zone</h2>
+                    
+                    <p>Once you delete your account, there is no going back. Please be certain.</p>
+                    
+                    <div style="text-align: right;">
+                        <button class="btn btn-danger">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div class="footer">
+        <div class="container">
+            <p>HCSS - Highly Confidential Security System © 2025. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
